@@ -119,14 +119,7 @@ class MenuScreen extends Component {
     return (
       <View style={this.props.dark ? styles.DarkConatiner : styles.container}>
         <View style={styles.header}>
-          <Text
-            style={
-              this.props.dark
-                ? styles.darkFirstHeaderText
-                : styles.firstHeaderText
-            }>
-            MY{' '}
-          </Text>
+          <Text style={styles.firstHeaderText}>MY </Text>
           <Text
             style={
               this.props.dark
@@ -227,9 +220,14 @@ class MenuScreen extends Component {
             </View>
             <View style={styles.submitIcon}>
               <TouchableOpacity
-                style={styles.doneContainer}
+                // style={styles.doneContainer}
                 onPress={() => this.submitData()}>
-                <Text style={styles.doneText}>Done</Text>
+                <Text
+                  style={
+                    this.props.dark ? styles.darkDoneText : styles.doneText
+                  }>
+                  Done
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -377,12 +375,14 @@ const styles = StyleSheet.create({
   },
   Modalcontainer: {
     marginTop: 60,
+    height: '100%',
   },
 
   DarkModalContainer: {
     marginTop: 60,
     flex: 1,
     backgroundColor: 'black',
+    height: '100%',
   },
   listConatiner: {
     height: 550,
@@ -450,7 +450,7 @@ const styles = StyleSheet.create({
     tintColor: 'white',
   },
   doneContainer: {
-    height: '10%',
+    height: '5%',
     width: '50%',
     backgroundColor: 'red',
     borderRadius: 20,
@@ -458,6 +458,11 @@ const styles = StyleSheet.create({
     borderColor: 'red',
   },
   doneText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'black',
+  },
+  darkDoneText: {
     fontSize: 20,
     fontWeight: 'bold',
     color: 'white',

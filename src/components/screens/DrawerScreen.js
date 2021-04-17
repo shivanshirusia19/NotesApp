@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   drawer: {
-    backgroundColor: 'darkblue',
+    backgroundColor: '#212121',
   },
 });
 const mapDispatchToProps = (dispatch) => {
