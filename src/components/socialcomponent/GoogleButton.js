@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Alert, TouchableOpacity, Text} from 'react-native';
+import {StyleSheet, TouchableOpacity, Text} from 'react-native';
 import {
   GoogleSignin,
   GoogleSigninButton,
@@ -16,28 +16,24 @@ const GoogleLoginButton = ({callback}) => {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
-      const UserData = {
-        email: userInfo.user.email,
+      const userData = {
         username: userInfo.user.email,
         password: userInfo.user.id,
-        phone: 9876543210,
+        phone: 9999999999,
         name: userInfo.user.name,
         socialId: userInfo.user.id,
       };
-      console.log(userInfo.user.name);
-      callback(UserData);
+      callback(userData);
+      // Dispatch Action
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        Alert.alert('Process Cancelled');
+        console.log('SIGN_IN_CANCELLED:', error);
       } else if (error.code === statusCodes.IN_PROGRESS) {
-        Alert.alert('Process in Progress');
+        console.log('IN_PROGRESS:', error);
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        Alert.alert('Play Services are not available');
+        console.log('PLAY_SERVICES_NOT_AVAILABLE:', error);
       } else {
-        Alert.alert('Something else went wrong...', error.toString());
-        this.setState({
-          error,
-        });
+        console.log('Error:', error);
       }
     }
   };
@@ -58,12 +54,13 @@ const GoogleLogoutButton = () => {
       await GoogleSignin.revokeAccess();
       await GoogleSignin.signOut();
       console.log(
-        'signOut(): Revoke Access \n signOut: SIGN_OUT, google layout',
+        'signOut(): REVOKE_ACCESS \nsignOut: SIGN_OUT, google logout',
       );
     } catch (error) {
-      console.error('signOut(): ', error);
+      console.log('signOut(): ', error);
     }
   };
+
   return (
     <TouchableOpacity onPress={signOut}>
       <Text>Google Logout</Text>
@@ -72,41 +69,9 @@ const GoogleLogoutButton = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  headingText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  titleText: {
-    fontSize: 20,
-  },
-  messageText: {
-    fontSize: 16,
-  },
   button: {
     width: 200,
     height: 50,
-  },
-  userInfoContainer: {
-    marginVertical: 20,
-  },
-  profileImageContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  profileImage: {
-    width: 100,
-    height: 100,
-  },
-  displayTitle: {
-    fontSize: 22,
-    color: '#010101',
   },
 });
 
